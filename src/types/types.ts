@@ -7,6 +7,6 @@ export interface ICurrentWord {
 export interface ITraining {
   wordsInTraining: number;
   words: ICurrentWord[];
-  indexOfTraining?: number;
-  answer?: string[];
+  indexOfTraining: number;
+  answer: string[];
 }
