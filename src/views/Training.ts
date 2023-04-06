@@ -19,13 +19,14 @@ export const training = {
     if (this.letters) {
       options.forEach((letter): void => {
         this.letters.appendChild(
-          new Button(letter, this.handleClick.bind(this), this.isCorrect).render()
+          new Button(letter, this.handleClick.bind(this)).render()
         );
       });
     }
   },
   handleClick(e: MouseEvent): void {
-    const letter = (e.target as HTMLButtonElement).innerHTML;
+    const target = (e.target as HTMLButtonElement);
+    const letter = target.innerHTML;
 
     this.isCorrect = controller.checkAnswer(letter, this.clickCount);
 
@@ -35,8 +36,9 @@ export const training = {
       );
       // If answer is correct, increase clickCount
       this.clickCount++;
+      this.render();
+    } else {
+      target.classList.add("btn-danger");
     }
-
-    this.render();
   }
 };
