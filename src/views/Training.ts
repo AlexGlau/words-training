@@ -7,6 +7,7 @@ export const training = {
     this.render();
   },
   render(): void {
+    this.letters.innerHTML = "";
     const words = controller.getCurrentTraining();
 
     if (this.letters) {
