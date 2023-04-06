@@ -1,12 +1,7 @@
 import { Button } from "./Button";
 import { controller } from "../controllers/Controller";
 
-interface ITraining {
-  init(): void;
-  render(): void;
-}
-
-export const training: ITraining = {
+export const training = {
   init(): void {
     this.letters = document.getElementById("letters");
     this.render();
@@ -15,9 +10,14 @@ export const training: ITraining = {
     const words = controller.getCurrentTraining();
 
     if (this.letters) {
-      words.options.forEach((letter) => {
-        this.letters.appendChild(new Button(letter).render());
+      words.options.forEach((letter): void => {
+        this.letters.appendChild(
+          new Button(letter, this.handleClick).render()
+        );
       });
     }
+  },
+  handleClick(): void {
+    console.log("click");
   }
 };
