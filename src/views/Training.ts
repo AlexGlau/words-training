@@ -3,6 +3,8 @@ import { Answer } from "./Answer";
 import { controller } from "../controllers/Controller";
 
 export const training = {
+  clickCount: 0,
+  isCorrect: true,
   init(): void {
     this.letters = document.getElementById("letters");
     this.answer = document.getElementById("answer");
@@ -10,14 +12,14 @@ export const training = {
   },
   render(): void {
     this.letters.innerHTML = "";
-    this.answer.innerHTML = "";
+    // this.answer.innerHTML = "";
 
-    const words = controller.getCurrentTraining();
+    const { options } = controller.getCurrentTraining();
 
     if (this.letters) {
-      words.options.forEach((letter): void => {
+      options.forEach((letter): void => {
         this.letters.appendChild(
-          new Button(letter, this.handleClick.bind(this)).render()
+          new Button(letter, this.handleClick.bind(this), this.isCorrect).render()
         );
       });
     }
@@ -25,8 +27,16 @@ export const training = {
   handleClick(e: MouseEvent): void {
     const letter = (e.target as HTMLButtonElement).innerHTML;
 
-    this.answer.appendChild(
-      new Answer(letter).render()
-    )
+    this.isCorrect = controller.checkAnswer(letter, this.clickCount);
+
+    if (this.isCorrect) {
+      this.answer.appendChild(
+        new Answer(letter).render()
+      );
+      // If answer is correct, increase clickCount
+      this.clickCount++;
+    }
+
+    this.render();
   }
 };

@@ -3,15 +3,7 @@ import { store } from "../store";
 import { ICurrentWord } from "../types/types";
 import { training } from "../views/Training";
 
-interface IController {
-  init(): void;
-  createTraining(): void;
-  getWords(): ICurrentWord[];
-  getCurrentTraining(): ICurrentWord;
-  nextWord(): void;
-}
-
-export const controller: IController = {
+export const controller = {
   init(): void {
     this.createTraining();
     training.init();
@@ -33,5 +25,15 @@ export const controller: IController = {
   nextWord(): void {
     model.indexOfTraining++;
     training.render();
-  }
+  },
+  checkAnswer(letter: string, clickCount: number): boolean {
+    const { word } = this.getCurrentTraining();
+
+    if (word.indexOf(letter) === -1) {
+      return false;
+    }
+
+    // clickCount is used as an index
+    return word[clickCount] === letter;
+  },
 }
