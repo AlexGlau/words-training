@@ -12,5 +12,8 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module"
+  },
+  "rules": {
+    "prefer-const": ["error", {"destructuring": "all"}]
   }
 }
