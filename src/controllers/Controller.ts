@@ -29,11 +29,13 @@ export const controller = {
   checkAnswer(letter: string, clickCount: number): boolean {
     const { word } = this.getCurrentTraining();
 
-    if (word.indexOf(letter) === -1) {
+    // clickCount is used as an index
+    if (word.indexOf(letter) === -1 || word[clickCount] !== letter) {
+      model.words[model.indexOfTraining].numberOfErrors++;
+
       return false;
     }
 
-    // clickCount is used as an index
-    return word[clickCount] === letter;
+    return true;
   },
 }
