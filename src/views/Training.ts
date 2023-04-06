@@ -12,10 +12,10 @@ export const training: ITraining = {
     this.render();
   },
   render(): void {
-    const words = controller.getWords();
+    const words = controller.getCurrentTraining();
 
     if (this.letters) {
-      words[0].options.forEach((letter) => {
+      words.options.forEach((letter) => {
         this.letters.appendChild(new Button(letter).render());
       });
     }

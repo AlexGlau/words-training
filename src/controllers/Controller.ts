@@ -31,6 +31,7 @@ export const controller: IController = {
     return model.words[model.indexOfTraining];
   },
   nextWord(): void {
-    model.indexOfTraining =+ 1;
+    model.indexOfTraining++;
+    training.render();
   }
 }
