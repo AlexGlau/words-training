@@ -14,12 +14,14 @@ export const training = {
     this.letters.innerHTML = "";
     // this.answer.innerHTML = "";
 
-    const { options } = controller.getCurrentTraining();
+    const { options, numberOfErrors } = controller.getCurrentTraining();
+
+    const cls = numberOfErrors > 3 ? "btn-danger" : "";
 
     if (this.letters) {
       options.forEach((letter): void => {
         this.letters.appendChild(
-          new Button(letter, this.handleClick.bind(this)).render()
+          new Button(letter, this.handleClick.bind(this), cls).render()
         );
       });
     }

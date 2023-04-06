@@ -33,6 +33,8 @@ export const controller = {
     if (word.indexOf(letter) === -1 || word[clickCount] !== letter) {
       model.words[model.indexOfTraining].numberOfErrors++;
 
+      this.showCorrectAnswer();
+
       return false;
     }
 
@@ -45,5 +47,15 @@ export const controller = {
     const index = options.indexOf(letter);
 
     model.words[model.indexOfTraining].options.splice(index, 1);
+  },
+  showCorrectAnswer(): void {
+    const { word, numberOfErrors } = this.getCurrentTraining();
+
+    if (numberOfErrors > 3) {
+      const correctSequence = word.split("");
+      model.words[model.indexOfTraining].options = correctSequence;
+
+      training.render();
+    }
   }
 }
