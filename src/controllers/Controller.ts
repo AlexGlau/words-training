@@ -36,6 +36,14 @@ export const controller = {
       return false;
     }
 
+    this.reduceButtons(letter);
+
     return true;
   },
+  reduceButtons(letter: string): void {
+    const { options } = this.getCurrentTraining();
+    const index = options.indexOf(letter);
+
+    model.words[model.indexOfTraining].options.splice(index, 1);
+  }
 }
