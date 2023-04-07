@@ -25,12 +25,12 @@ export const controller = {
   nextWord(): void {
     const { indexOfTraining, wordsInTraining } = model;
 
-    if (indexOfTraining < wordsInTraining) {
+    if (wordsInTraining > indexOfTraining + 1) {
       model.indexOfTraining++;
     }
   },
   checkAnswer(letter: string, clickCount: number): boolean {
-    const { word, options } = this.getCurrentTraining();
+    const { word } = this.getCurrentTraining();
 
     // clickCount is used as an index
     if (word.indexOf(letter) === -1 || word[clickCount] !== letter) {
