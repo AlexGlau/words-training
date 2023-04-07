@@ -23,16 +23,18 @@ export const controller = {
     return model.words[model.indexOfTraining];
   },
   nextWord(): void {
-    model.indexOfTraining++;
-    training.render();
+    const { indexOfTraining, wordsInTraining } = model;
+
+    if (indexOfTraining < wordsInTraining) {
+      model.indexOfTraining++;
+    }
   },
   checkAnswer(letter: string, clickCount: number): boolean {
-    const { word } = this.getCurrentTraining();
+    const { word, options } = this.getCurrentTraining();
 
     // clickCount is used as an index
     if (word.indexOf(letter) === -1 || word[clickCount] !== letter) {
       model.words[model.indexOfTraining].numberOfErrors++;
-
       this.showCorrectAnswer();
 
       return false;

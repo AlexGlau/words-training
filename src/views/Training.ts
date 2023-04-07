@@ -12,7 +12,6 @@ export const training = {
   },
   render(): void {
     this.letters.innerHTML = "";
-    // this.answer.innerHTML = "";
 
     const { options, numberOfErrors } = controller.getCurrentTraining();
 
@@ -26,9 +25,14 @@ export const training = {
       });
     }
   },
+  clearAnswer(): void {
+    this.answer.innerHTML = "";
+  },
   handleClick(e: MouseEvent): void {
     const target = (e.target as HTMLButtonElement);
     const letter = target.innerHTML;
+
+    const { options } = controller.getCurrentTraining();
 
     this.isCorrect = controller.checkAnswer(letter, this.clickCount);
 
@@ -39,6 +43,13 @@ export const training = {
       // If answer is correct, increase clickCount
       this.clickCount++;
       this.render();
+
+      if (options.length === 0) {
+        this.clickCount = 0;
+        controller.nextWord();
+        this.clearAnswer();
+        this.render();
+      }
     } else {
       target.classList.add("btn-danger");
     }
