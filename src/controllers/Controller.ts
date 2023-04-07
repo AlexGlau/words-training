@@ -64,7 +64,7 @@ export const controller = {
   showCorrectAnswer(): void {
     const { word, numberOfErrors } = this.getCurrentTraining();
 
-    if (numberOfErrors > 3) {
+    if (numberOfErrors === 3) {
       const correctSequence = word.split("");
       model.words[model.indexOfTraining].options = correctSequence;
 
@@ -74,6 +74,7 @@ export const controller = {
         this.nextWord();
         training.render();
         training.clearAnswer();
+        training.renderCurrentQuestion();
       }, 2000);
     }
   },

@@ -33,7 +33,7 @@ export const training = {
 
     const { options, numberOfErrors } = controller.getCurrentTraining();
 
-    const cls = numberOfErrors > 3 ? "btn-danger" : "";
+    const cls = numberOfErrors === 3 ? "btn-danger" : "";
 
     if (this.letters) {
       options.forEach((letter): void => {
