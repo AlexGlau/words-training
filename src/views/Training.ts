@@ -9,6 +9,11 @@ export const training = {
     this.letters = document.getElementById("letters");
     this.answer = document.getElementById("answer");
     this.currentQuestion = document.getElementById("current_question");
+    // Number words in one training should be set only once
+    // so there's no need in a method
+    document
+      .getElementById("total_questions")
+      .innerHTML = controller.getNumberOfWordsInTraining().toString();
     this.render();
   },
   renderCurrentQuestion(): void {

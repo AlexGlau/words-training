@@ -16,6 +16,9 @@ export const controller = {
       model.words.push({ word, options, numberOfErrors: 0 });
     }
   },
+  getNumberOfWordsInTraining(): number {
+    return model.wordsInTraining;
+  },
   getIndex(): number {
     return model.indexOfTraining + 1;
   },
