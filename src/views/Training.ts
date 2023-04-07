@@ -8,7 +8,13 @@ export const training = {
   init(): void {
     this.letters = document.getElementById("letters");
     this.answer = document.getElementById("answer");
+    this.currentQuestion = document.getElementById("current_question");
     this.render();
+  },
+  renderCurrentQuestion(): void {
+    if (this.currentQuestion) {
+      this.currentQuestion.innerHTML = controller.getIndex();
+    }
   },
   render(): void {
     this.letters.innerHTML = "";
@@ -48,6 +54,7 @@ export const training = {
       if (options.length === 0) {
         this.clickCount = 0;
         controller.nextWord();
+        this.renderCurrentQuestion();
         // Clear answer only when word changes
         this.clearAnswer();
         this.render();
