@@ -7,7 +7,7 @@ export class Button {
 
   public render(): Node {
     const button = document.createElement("button");
-    button.className = `btn ${this.cls}`;
+    button.className = `btn btn-primary ${this.cls}`;
     button.textContent = this.content;
     button.addEventListener("click", this.callback);
 
