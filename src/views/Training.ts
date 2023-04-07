@@ -44,9 +44,11 @@ export const training = {
       this.clickCount++;
       this.render();
 
+      // When there's no options anymore, show next word
       if (options.length === 0) {
         this.clickCount = 0;
         controller.nextWord();
+        // Clear answer only when word changes
         this.clearAnswer();
         this.render();
       }
