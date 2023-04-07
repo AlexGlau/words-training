@@ -93,7 +93,7 @@ export const controller = {
       }
     });
 
-    let wordWithMostErrors = '';
+    let wordWithMostErrors = model.words[0].word;
     let firstIndex = model.words[0].numberOfErrors;
     for (let i = 1; i < model.words.length; i++) {
       if (model.words[i].numberOfErrors > firstIndex) {
