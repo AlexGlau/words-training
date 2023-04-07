@@ -17,7 +17,7 @@ export const training = {
       .innerHTML = controller.getNumberOfWordsInTraining().toString();
     this.render();
   },
-  renderCurrentQuestion(): void {
+  updateNumberOfCurrentQuestion(): void {
     if (this.currentQuestion) {
       this.currentQuestion.innerHTML = controller.getIndex();
     }
@@ -65,8 +65,8 @@ export const training = {
       // When there's no options anymore, show next word
       if (options.length === 0) {
         this.clickCount = 0;
-        controller.nextWord();
-        this.renderCurrentQuestion();
+        controller.switchToNextWord();
+        this.updateNumberOfCurrentQuestion();
         // Clear answer only when word changes
         this.clearAnswer();
         this.render();

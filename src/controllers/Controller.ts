@@ -31,7 +31,7 @@ export const controller = {
   getCurrentTraining(): ICurrentWord {
     return model.words[model.indexOfTraining];
   },
-  nextWord(): void {
+  switchToNextWord(): void {
     const { indexOfTraining, wordsInTraining } = model;
 
     if (wordsInTraining > indexOfTraining + 1) {
@@ -71,10 +71,10 @@ export const controller = {
       training.render();
 
       setTimeout(() => {
-        this.nextWord();
+        this.switchToNextWord();
         training.render();
         training.clearAnswer();
-        training.renderCurrentQuestion();
+        training.updateNumberOfCurrentQuestion();
       }, 2000);
     }
   },
