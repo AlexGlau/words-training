@@ -4,9 +4,9 @@ import { ICurrentWord } from "../types/types";
 import { training } from "../views/Training";
 
 interface IStat {
-  wordsWithNoTypos: number;
-  commonNumberOfTypos: number;
-  wordWithMostTypos: string;
+  wordsWithNoErrors: number;
+  commonNumberOfErrors: number;
+  wordWithMostErrors: string;
 }
 
 export const controller = {
@@ -79,32 +79,34 @@ export const controller = {
     }
   },
   getStat(): IStat {
-    let wordsWithNoTypos = 0;
+    let wordsWithNoErrors = 0;
     model.words.forEach((word: ICurrentWord): void => {
       if (word.numberOfErrors === 0) {
-        wordsWithNoTypos++;
+        wordsWithNoErrors++;
       }
     });
 
-    let commonNumberOfTypos = 0;
+    let commonNumberOfErrors = 0;
     model.words.forEach((word: ICurrentWord): void => {
       if (word.numberOfErrors > 0) {
-        commonNumberOfTypos += word.numberOfErrors;
+        commonNumberOfErrors += word.numberOfErrors;
       }
     });
 
-    let wordWithMostTypos = '';
-    const firstIndex = model.words[0].numberOfErrors;
+    let wordWithMostErrors = '';
+    let firstIndex = model.words[0].numberOfErrors;
     for (let i = 1; i < model.words.length; i++) {
       if (model.words[i].numberOfErrors > firstIndex) {
-        wordWithMostTypos = model.words[i].word;
+        // Update previously stored number of errors
+        firstIndex = model.words[i].numberOfErrors;
+        wordWithMostErrors = model.words[i].word;
       }
     }
 
     return {
-      wordsWithNoTypos,
-      commonNumberOfTypos,
-      wordWithMostTypos
+      wordsWithNoErrors,
+      commonNumberOfErrors,
+      wordWithMostErrors
     }
   }
 }
