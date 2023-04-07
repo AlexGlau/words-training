@@ -67,7 +67,7 @@ export const controller = {
     if (numberOfErrors === 3) {
       const correctSequence = word.split("");
       model.words[model.indexOfTraining].options = correctSequence;
-
+      training.clickCount = 0;
       training.render();
 
       setTimeout(() => {
