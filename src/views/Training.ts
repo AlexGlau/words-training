@@ -1,5 +1,6 @@
 import { Button } from "./Button";
 import { Answer } from "./Answer";
+import { stat } from "./Stat";
 import { controller } from "../controllers/Controller";
 
 export const training = {
@@ -20,6 +21,12 @@ export const training = {
     if (this.currentQuestion) {
       this.currentQuestion.innerHTML = controller.getIndex();
     }
+  },
+  renderStat(): void {
+    this.letters.innerHTML = "";
+    this.answer.innerHTML = "";
+
+    stat.init();
   },
   render(): void {
     this.letters.innerHTML = "";

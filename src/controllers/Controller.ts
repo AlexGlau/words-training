@@ -3,6 +3,12 @@ import { store } from "../store";
 import { ICurrentWord } from "../types/types";
 import { training } from "../views/Training";
 
+interface IStat {
+  wordsWithNoTypos: number;
+  commonNumberOfTypos: number;
+  wordWithMostTypos: string;
+}
+
 export const controller = {
   init(): void {
     this.createTraining();
@@ -30,6 +36,8 @@ export const controller = {
 
     if (wordsInTraining > indexOfTraining + 1) {
       model.indexOfTraining++;
+    } else {
+      training.renderStat();
     }
   },
   checkAnswer(letter: string, clickCount: number): boolean {
@@ -61,6 +69,35 @@ export const controller = {
       model.words[model.indexOfTraining].options = correctSequence;
 
       training.render();
+    }
+  },
+  getStat(): IStat {
+    let wordsWithNoTypos = 0;
+    model.words.forEach((word: ICurrentWord): void => {
+      if (word.numberOfErrors === 0) {
+        wordsWithNoTypos++;
+      }
+    });
+
+    let commonNumberOfTypos = 0;
+    model.words.forEach((word: ICurrentWord): void => {
+      if (word.numberOfErrors > 0) {
+        commonNumberOfTypos += word.numberOfErrors;
+      }
+    });
+
+    let wordWithMostTypos = '';
+    const firstIndex = model.words[0].numberOfErrors;
+    for (let i = 1; i < model.words.length; i++) {
+      if (model.words[i].numberOfErrors > firstIndex) {
+        wordWithMostTypos = model.words[i].word;
+      }
+    }
+
+    return {
+      wordsWithNoTypos,
+      commonNumberOfTypos,
+      wordWithMostTypos
     }
   }
 }
