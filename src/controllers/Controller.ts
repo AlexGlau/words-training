@@ -69,6 +69,12 @@ export const controller = {
       model.words[model.indexOfTraining].options = correctSequence;
 
       training.render();
+
+      setTimeout(() => {
+        this.nextWord();
+        training.render();
+        training.clearAnswer();
+      }, 2000);
     }
   },
   getStat(): IStat {
