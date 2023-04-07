@@ -8,19 +8,19 @@ export const stat = {
   },
   render(): void {
     const {
-      wordsWithNoTypos,
-      commonNumberOfTypos,
-      wordWithMostTypos
+      wordsWithNoErrors,
+      commonNumberOfErrors,
+      wordWithMostErrors
     } = controller.getStat();
 
     this.stat.appendChild(
-      new StatRow('Words with no typos: ', wordsWithNoTypos).render()
+      new StatRow('Words with no typos: ', wordsWithNoErrors).render()
     );
     this.stat.appendChild(
-      new StatRow('Common number of typos: ', commonNumberOfTypos).render()
+      new StatRow('Common number of typos: ', commonNumberOfErrors).render()
     );
     this.stat.appendChild(
-      new StatRow('Word with most typos: ' ,wordWithMostTypos).render()
+      new StatRow('Word with most typos: ' ,wordWithMostErrors).render()
     )
   }
 }
