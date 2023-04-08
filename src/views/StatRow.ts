@@ -1,8 +1,5 @@
 export class StatRow {
-  constructor(
-    public label: string,
-    public value: string | number,
-  ) {}
+  constructor(public label: string, public value: string | number) {}
 
   public render(): Node {
     const statRow = document.createElement("div");

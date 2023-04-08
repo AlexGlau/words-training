@@ -7,20 +7,17 @@ export const stat = {
     this.render();
   },
   render(): void {
-    const {
-      wordsWithNoErrors,
-      commonNumberOfErrors,
-      wordWithMostErrors
-    } = controller.getStat();
+    const { wordsWithNoErrors, commonNumberOfErrors, wordWithMostErrors } =
+      controller.getStat();
 
     this.stat.appendChild(
-      new StatRow('Words with no typos: ', wordsWithNoErrors).render()
+      new StatRow("Words with no typos: ", wordsWithNoErrors).render()
     );
     this.stat.appendChild(
-      new StatRow('Common number of typos: ', commonNumberOfErrors).render()
+      new StatRow("Common number of typos: ", commonNumberOfErrors).render()
     );
     this.stat.appendChild(
-      new StatRow('Word with most typos: ' ,wordWithMostErrors).render()
-    )
-  }
-}
+      new StatRow("Word with most typos: ", wordWithMostErrors).render()
+    );
+  },
+};
