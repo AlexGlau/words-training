@@ -3,7 +3,7 @@ export class Answer {
 
   public render(): Node {
     const answer = document.createElement("span");
-    answer.className = "btn m-auto alert-success";
+    answer.className = "btn mt-auto mb-auto alert-success";
     answer.textContent = this.content;
 
     return answer;
