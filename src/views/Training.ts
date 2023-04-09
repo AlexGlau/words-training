@@ -53,36 +53,4 @@ export class Training implements ITraining {
       handler(target.innerHTML);
     });
   }
-
-  handleClick(e: MouseEvent): void {
-    const target = (e.target as HTMLButtonElement);
-    console.log(target);
-
-    // const letter = target.innerHTML;
-
-    // const { options } = controller.getCurrentTraining();
-
-    // this.isCorrect = controller.checkAnswer(letter, this.clickCount);
-
-    // if (this.isCorrect) {
-    //   this.answer.appendChild(
-    //     new Answer(letter).render()
-    //   );
-    //   // If answer is correct, increase clickCount
-    //   this.clickCount++;
-    //   this.render();
-
-    //   // When there's no options anymore, show next word
-    //   if (options.length === 0) {
-    //     this.clickCount = 0;
-    //     controller.switchToNextWord();
-    //     this.updateNumberOfCurrentQuestion();
-    //     // Clear answer only when word changes
-    //     this.clearAnswer();
-    //     this.render();
-    //   }
-    // } else {
-    //   target.classList.add("btn-danger");
-    // }
-  }
 }
