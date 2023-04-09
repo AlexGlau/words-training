@@ -27,19 +27,12 @@ export type El = HTMLElement | null;
 
 export interface ITraining {
   clickCount: number;
-  // isCorrect: boolean;
-  // letters: El;
-  // answer: El;
-  // currentQuestion: El;
-  // init(): void;
   onAnswer(handler: (s: string) => void): void;
   renderNumberOfWords(value: string): void;
   render(word: ICurrentWord): void;
   renderAnswers(letter: string): void;
   setNumberOfCurrentWord(numberOfWord: string): void;
   renderStat(statistics: IStat): void;
-  // clearAnswer(): void;
-  // handleClick(e: MouseEvent): void;
 }
 
 export interface IStat {
