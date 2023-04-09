@@ -13,6 +13,7 @@ export class Controller {
 
     this.model.bindOnRender(this.onRender);
     this.model.bindAnswerRender(this.answerRenderHandler);
+    this.model.bindSetCurrectNumberOfWord(this.currentWordRenderHandler)
 
     this.training.renderNumberOfWords(
       this.model.wordsInTraining.toString()
@@ -33,13 +34,17 @@ export class Controller {
     this.training.renderAnswers(this.model.getAnswer());
   }
 
+  public currentWordRenderHandler = (): void => {
+    this.training.setNumberOfCurrentWord(
+      this.model.getNumberOfCurrentWord()
+    );
+  }
+
   // getNumberOfWordsInTraining(): number {
   //   return this.model.wordsInTraining;
   // }
 
-  // getIndex(): number {
-  //   return this.model.indexOfTraining + 1;
-  // }
+
 
   // getStat(): IStat {
   //   let wordsWithNoErrors = 0;

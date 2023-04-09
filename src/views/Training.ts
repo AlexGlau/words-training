@@ -1,7 +1,6 @@
 import { Button } from "./Button";
 import { Answer } from "./Answer";
 // import { stat } from "./Stat";
-// import { controller } from "../controllers/Controller";
 
 import { ITraining, ICurrentWord } from "../types/types";
 
@@ -11,19 +10,6 @@ export class Training implements ITraining {
   private letters = document.getElementById("letters");
   private answer = document.getElementById("answer");
   private currentQuestion = document.getElementById("current_question");
-
-  constructor () {
-    // this.render();
-  }
-
-  // public init(): void {
-  //   this.letters = document.getElementById("letters");
-  //   this.answer = document.getElementById("answer");
-  //   this.currentQuestion = document.getElementById("current_question");
-  //   // Number words in one training should be set only once
-  //   // so there's no need in a method
-  //   this.render();
-  // }
 
   public renderNumberOfWords(value: string): void {
     document.getElementById("total_questions").innerHTML = value;
@@ -36,13 +22,11 @@ export class Training implements ITraining {
 
     const cls = numberOfErrors === 3 ? "btn-danger" : "";
 
-    if (this.letters) {
-      options.forEach((letter): void => {
-        this.letters.appendChild(
-          new Button(letter, cls).render()
-        );
-      });
-    }
+    options.forEach((letter): void => {
+      this.letters.appendChild(
+        new Button(letter, cls).render()
+      );
+    });
   }
 
   public renderAnswers(letter: string): void {
@@ -51,11 +35,9 @@ export class Training implements ITraining {
     );
   }
 
-  // updateNumberOfCurrentQuestion(): void {
-  //   if (this.currentQuestion) {
-  //     this.currentQuestion.innerHTML = controller.getIndex().toString();
-  //   }
-  // }
+  public setNumberOfCurrentWord(numberOfWord: string): void {
+    this.currentQuestion.innerHTML = numberOfWord;
+  }
 
   // renderStat(): void {
   //   this.letters.innerHTML = "";

@@ -16,6 +16,8 @@ export interface IModel {
   checkAnswer(letter: string): void;
   getAnswer(): string;
   bindAnswerRender(cb: () => void): void;
+  getNumberOfCurrentWord(): string;
+  bindSetCurrectNumberOfWord(cb: () => void): void;
 }
 
 export type El = HTMLElement | null;
@@ -31,7 +33,7 @@ export interface ITraining {
   renderNumberOfWords(value: string): void;
   render(word: ICurrentWord): void;
   renderAnswers(letter: string): void;
-  // updateNumberOfCurrentQuestion(): void;
+  setNumberOfCurrentWord(numberOfWord: string): void;
   // renderStat(): void;
   // clearAnswer(): void;
   // handleClick(e: MouseEvent): void;

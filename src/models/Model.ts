@@ -9,6 +9,7 @@ export class Model implements IModel {
   public indexOfTraining;
   public onRender: () => void;
   public answerRender: () => void;
+  public renderCurrentNumberOfWord: (numberOfCurrentWord: string) => void;
 
   constructor() {
     this.wordsInTraining = 3;
@@ -25,6 +26,10 @@ export class Model implements IModel {
 
   public bindAnswerRender(cb: () => void): void {
     this.answerRender = cb;
+  }
+
+  public bindSetCurrectNumberOfWord = (cb: () => void) => {
+    this.renderCurrentNumberOfWord = cb;
   }
 
   private createTraining(): void {
@@ -80,7 +85,9 @@ export class Model implements IModel {
         this.switchToNextWord();
         this.onRender();
         // this.training.clearAnswer();
-        // this.training.updateNumberOfCurrentQuestion();
+        this.getNumberOfCurrentWord();
+        this.renderCurrentNumberOfWord((this.indexOfTraining + 1).toString());
+
       }, 2000);
     }
   }
@@ -95,5 +102,9 @@ export class Model implements IModel {
     } else {
       // this.training.renderStat();
     }
+  }
+
+  public getNumberOfCurrentWord(): string {
+    return (this.indexOfTraining + 1).toString();
   }
 }
