@@ -48,9 +48,13 @@ export class Training implements ITraining {
   }
 
   public onAnswer(handler: (s: string) => void): void {
-    this.letters.addEventListener("click", (e: MouseEvent) => {
+    this.letters.addEventListener("click", (e: MouseEvent): void => {
       const target = (e.target as HTMLButtonElement);
       handler(target.innerHTML);
+    });
+
+    document.addEventListener("keydown", (e: KeyboardEvent): void => {
+      handler(e.key);
     });
   }
 }
