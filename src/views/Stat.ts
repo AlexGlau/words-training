@@ -1,14 +1,16 @@
-import { controller } from "../controllers/Controller";
 import { StatRow } from "./StatRow";
+import { IStat } from "../types/types";
 
-export const stat = {
-  init(): void {
+export class Stat {
+  private stat: HTMLElement;
+
+  constructor(public statistics: IStat) {
     this.stat = document.getElementById("stat");
-    this.render();
-  },
-  render(): void {
+  }
+
+  public render(): void {
     const { wordsWithNoErrors, commonNumberOfErrors, wordWithMostErrors } =
-      controller.getStat();
+      this.statistics;
 
     this.stat.appendChild(
       new StatRow("Words with no typos: ", wordsWithNoErrors).render()
@@ -19,5 +21,5 @@ export const stat = {
     this.stat.appendChild(
       new StatRow("Word with most typos: ", wordWithMostErrors).render()
     );
-  },
-};
+  }
+}

@@ -1,12 +1,11 @@
 import { Button } from "./Button";
 import { Answer } from "./Answer";
-// import { stat } from "./Stat";
+import { Stat } from "./Stat";
 
-import { ITraining, ICurrentWord } from "../types/types";
+import { ITraining, ICurrentWord, IStat } from "../types/types";
 
 export class Training implements ITraining {
   public clickCount = 0;
-  private isCorrect = true;
   private letters = document.getElementById("letters");
   private answer = document.getElementById("answer");
   private currentQuestion = document.getElementById("current_question");
@@ -41,12 +40,12 @@ export class Training implements ITraining {
     this.currentQuestion.innerHTML = numberOfWord;
   }
 
-  // renderStat(): void {
-  //   this.letters.innerHTML = "";
-  //   this.answer.innerHTML = "";
+  public renderStat(statistics: IStat): void {
+    this.letters.classList.replace("d-flex", "d-none");
+    this.answer.classList.replace("d-flex", "d-none");
 
-  //   stat.init();
-  // }
+    new Stat(statistics).render();
+  }
 
   public onAnswer(handler: (s: string) => void): void {
     this.letters.addEventListener("click", (e: MouseEvent) => {

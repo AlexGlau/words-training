@@ -1,5 +1,5 @@
 import { store } from "../store";
-import { IModel, ICurrentWord } from "../types/types";
+import { IModel, ICurrentWord, IStat } from "../types/types";
 
 export class Model implements IModel {
   public clickCount = 0;
@@ -10,6 +10,7 @@ export class Model implements IModel {
   public onRender: () => void;
   public answerRender: () => void;
   public renderCurrentNumberOfWord: (numberOfCurrentWord: string) => void;
+  public renderStat: () => void;
 
   constructor() {
     this.wordsInTraining = 3;
@@ -30,6 +31,10 @@ export class Model implements IModel {
 
   public bindSetCurrectNumberOfWord = (cb: () => void) => {
     this.renderCurrentNumberOfWord = cb;
+  }
+
+  public bindRenderStat = (cb: () => void): void => {
+    this.renderStat = cb;
   }
 
   private createTraining(): void {
@@ -87,7 +92,6 @@ export class Model implements IModel {
       this.clickCount = 0;
 
       this.onRender();
-
       this.switchToNextWord();
     }
   }
@@ -109,11 +113,44 @@ export class Model implements IModel {
 
       }, 2000);
     } else {
-      // this.training.renderStat();
+      this.renderStat();
     }
   }
 
   public getNumberOfCurrentWord(): string {
     return (this.indexOfTraining + 1).toString();
+  }
+
+  public getStat(): IStat {
+    let wordsWithNoErrors = 0;
+    this.words.forEach((word: ICurrentWord): void => {
+      if (word.numberOfErrors === 0) {
+        wordsWithNoErrors++;
+      }
+    });
+
+    let commonNumberOfErrors = 0;
+    this.words.forEach((word: ICurrentWord): void => {
+      if (word.numberOfErrors > 0) {
+        commonNumberOfErrors += word.numberOfErrors;
+      }
+    });
+
+    let wordWithMostErrors = "";
+    let firstIndex = this.words[0].numberOfErrors;
+    for (let i = 1; i < this.words.length; i++) {
+      if (this.words[i].numberOfErrors > firstIndex) {
+        // Update previously stored number of errors
+        firstIndex = i;
+      }
+    }
+
+    wordWithMostErrors = this.words[firstIndex].word;
+
+    return {
+      wordsWithNoErrors,
+      commonNumberOfErrors,
+      wordWithMostErrors
+    }
   }
 }

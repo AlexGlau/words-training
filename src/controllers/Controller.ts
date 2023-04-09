@@ -1,10 +1,4 @@
-import { ICurrentWord, IModel, ITraining } from "../types/types";
-
-// interface IStat {
-//   wordsWithNoErrors: number;
-//   commonNumberOfErrors: number;
-//   wordWithMostErrors: string;
-// }
+import { IModel, ITraining } from "../types/types";
 
 export class Controller {
   constructor(public model: IModel, public training: ITraining) {
@@ -13,7 +7,8 @@ export class Controller {
 
     this.model.bindOnRender(this.onRender);
     this.model.bindAnswerRender(this.answerRenderHandler);
-    this.model.bindSetCurrectNumberOfWord(this.currentWordRenderHandler)
+    this.model.bindSetCurrectNumberOfWord(this.currentWordRenderHandler);
+    this.model.bindRenderStat(this.renderStatHandler);
 
     this.training.renderNumberOfWords(
       this.model.wordsInTraining.toString()
@@ -40,41 +35,7 @@ export class Controller {
     );
   }
 
-  // getNumberOfWordsInTraining(): number {
-  //   return this.model.wordsInTraining;
-  // }
-
-
-
-  // getStat(): IStat {
-  //   let wordsWithNoErrors = 0;
-  //   this.model.words.forEach((word: ICurrentWord): void => {
-  //     if (word.numberOfErrors === 0) {
-  //       wordsWithNoErrors++;
-  //     }
-  //   });
-
-  //   let commonNumberOfErrors = 0;
-  //   this.model.words.forEach((word: ICurrentWord): void => {
-  //     if (word.numberOfErrors > 0) {
-  //       commonNumberOfErrors += word.numberOfErrors;
-  //     }
-  //   });
-
-  //   let wordWithMostErrors = this.model.words[0].word;
-  //   let firstIndex = this.model.words[0].numberOfErrors;
-  //   for (let i = 1; i < this.model.words.length; i++) {
-  //     if (this.model.words[i].numberOfErrors > firstIndex) {
-  //       // Update previously stored number of errors
-  //       firstIndex = this.model.words[i].numberOfErrors;
-  //       wordWithMostErrors = this.model.words[i].word;
-  //     }
-  //   }
-
-  //   return {
-  //     wordsWithNoErrors,
-  //     commonNumberOfErrors,
-  //     wordWithMostErrors
-  //   }
-  // }
+  public renderStatHandler = (): void => {
+    this.training.renderStat(this.model.getStat());
+  }
 }
