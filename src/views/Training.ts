@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-// import { Answer } from "./Answer";
+import { Answer } from "./Answer";
 // import { stat } from "./Stat";
 // import { controller } from "../controllers/Controller";
 
@@ -39,10 +39,16 @@ export class Training implements ITraining {
     if (this.letters) {
       options.forEach((letter): void => {
         this.letters.appendChild(
-          new Button(letter, /*this.handleClick.bind(this),*/ cls).render()
+          new Button(letter, cls).render()
         );
       });
     }
+  }
+
+  public renderAnswers(letter: string): void {
+    this.answer.appendChild(
+      new Answer(letter).render()
+    );
   }
 
   // updateNumberOfCurrentQuestion(): void {

@@ -12,6 +12,7 @@ export class Controller {
     this.onRender();
 
     this.model.bindOnRender(this.onRender);
+    this.model.bindAnswerRender(this.answerRenderHandler);
 
     this.training.renderNumberOfWords(
       this.model.wordsInTraining.toString()
@@ -25,60 +26,19 @@ export class Controller {
   }
 
   private onAnswerHandler = (letter: string): void => {
-    this.model.reduceButtons(letter);
+    this.model.checkAnswer(letter);
+  }
+
+  public answerRenderHandler = (): void => {
+    this.training.renderAnswers(this.model.getAnswer());
   }
 
   // getNumberOfWordsInTraining(): number {
   //   return this.model.wordsInTraining;
   // }
 
-  getIndex(): number {
-    return this.model.indexOfTraining + 1;
-  }
-
-  // switchToNextWord(): void {
-  //   const { indexOfTraining, wordsInTraining } = this.model;
-
-  //   if (wordsInTraining > indexOfTraining + 1) {
-  //     this.model.indexOfTraining++;
-  //   } else {
-  //     this.training.renderStat();
-  //   }
-  // }
-
-  // checkAnswer(letter: string, clickCount: number): boolean {
-  //   const { word } = this.getCurrentTraining();
-
-  //   // clickCount is used as an index
-  //   if (word.indexOf(letter) === -1 || word[clickCount] !== letter) {
-  //     this.model.words[this.model.indexOfTraining].numberOfErrors++;
-  //     this.showCorrectAnswer();
-
-  //     return false;
-  //   }
-
-  //   this.reduceButtons(letter);
-
-  //   return true;
-  // }
-
-
-  // showCorrectAnswer(): void {
-  //   const { word, numberOfErrors } = this.getCurrentTraining();
-
-  //   if (numberOfErrors === 3) {
-  //     const correctSequence = word.split("");
-  //     this.model.words[this.model.indexOfTraining].options = correctSequence;
-  //     this.training.clickCount = 0;
-  //     this.training.render();
-
-  //     setTimeout(() => {
-  //       this.switchToNextWord();
-  //       this.training.render();
-  //       this.training.clearAnswer();
-  //       this.training.updateNumberOfCurrentQuestion();
-  //     }, 2000);
-  //   }
+  // getIndex(): number {
+  //   return this.model.indexOfTraining + 1;
   // }
 
   // getStat(): IStat {
