@@ -18,6 +18,7 @@ export interface IModel {
   bindAnswerRender(cb: () => void): void;
   getNumberOfCurrentWord(): string;
   bindSetCurrectNumberOfWord(cb: () => void): void;
+  switchToNextWord(): void;
 }
 
 export type El = HTMLElement | null;

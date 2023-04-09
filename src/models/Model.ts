@@ -53,7 +53,7 @@ export class Model implements IModel {
   }
 
   public checkAnswer(letter: string): void {
-    const { word } = this.getCurrentTraining();
+    const { word, options } = this.getCurrentTraining();
 
     // clickCount is used as an index
     if (word.indexOf(letter) === -1 || word[this.clickCount] !== letter) {
@@ -70,6 +70,11 @@ export class Model implements IModel {
     this.answerRender();
     this.reduceButtons(letter);
     this.onRender();
+
+    if (options.length === 0) {
+      this.clickCount = 0;
+      this.switchToNextWord();
+    }
   }
 
   private showCorrectAnswer(): void {
@@ -81,14 +86,9 @@ export class Model implements IModel {
       // Don't increase it on error. Otherwise next click returns wrong letter
       this.clickCount = 0;
 
-      setTimeout(() => {
-        this.switchToNextWord();
-        this.onRender();
-        // this.training.clearAnswer();
-        this.getNumberOfCurrentWord();
-        this.renderCurrentNumberOfWord((this.indexOfTraining + 1).toString());
+      this.onRender();
 
-      }, 2000);
+      this.switchToNextWord();
     }
   }
 
@@ -96,9 +96,18 @@ export class Model implements IModel {
     return this.answer;
   }
 
-  switchToNextWord(): void {
+  public switchToNextWord(): void {
     if (this.wordsInTraining > this.indexOfTraining + 1) {
-      this.indexOfTraining++;
+
+      setTimeout(() => {
+        this.indexOfTraining++;
+        // Clear previous answers
+        this.answer = '';
+        this.onRender();
+        this.answerRender();
+        this.renderCurrentNumberOfWord((this.indexOfTraining + 1).toString());
+
+      }, 2000);
     } else {
       // this.training.renderStat();
     }

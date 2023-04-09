@@ -30,9 +30,11 @@ export class Training implements ITraining {
   }
 
   public renderAnswers(letter: string): void {
-    this.answer.appendChild(
-      new Answer(letter).render()
-    );
+    if (letter !== '') {
+      this.answer.appendChild(new Answer(letter).render());
+    } else {
+      this.answer.innerHTML = "";
+    }
   }
 
   public setNumberOfCurrentWord(numberOfWord: string): void {
@@ -44,10 +46,6 @@ export class Training implements ITraining {
   //   this.answer.innerHTML = "";
 
   //   stat.init();
-  // }
-
-  // clearAnswer(): void {
-  //   this.answer.innerHTML = "";
   // }
 
   public onAnswer(handler: (s: string) => void): void {
