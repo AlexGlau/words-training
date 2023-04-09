@@ -1,4 +1,5 @@
 import { store } from "../store";
+import { getWordWithMostErrors, getCommonNumberOfErrors, getWordsWithNoErrors } from "../utils/statistic-utils";
 import { IModel, ICurrentWord, IStat } from "../types/types";
 
 export class Model implements IModel {
@@ -122,35 +123,10 @@ export class Model implements IModel {
   }
 
   public getStat(): IStat {
-    let wordsWithNoErrors = 0;
-    this.words.forEach((word: ICurrentWord): void => {
-      if (word.numberOfErrors === 0) {
-        wordsWithNoErrors++;
-      }
-    });
-
-    let commonNumberOfErrors = 0;
-    this.words.forEach((word: ICurrentWord): void => {
-      if (word.numberOfErrors > 0) {
-        commonNumberOfErrors += word.numberOfErrors;
-      }
-    });
-
-    let wordWithMostErrors = "";
-    let firstIndex = this.words[0].numberOfErrors;
-    for (let i = 1; i < this.words.length; i++) {
-      if (this.words[i].numberOfErrors > firstIndex) {
-        // Update previously stored number of errors
-        firstIndex = i;
-      }
-    }
-
-    wordWithMostErrors = this.words[firstIndex].word;
-
     return {
-      wordsWithNoErrors,
-      commonNumberOfErrors,
-      wordWithMostErrors
+      wordsWithNoErrors: getWordsWithNoErrors(this.words),
+      commonNumberOfErrors: getCommonNumberOfErrors(this.words),
+      wordWithMostErrors: getWordWithMostErrors(this.words)
     }
   }
 }
