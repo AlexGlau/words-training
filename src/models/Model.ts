@@ -1,5 +1,9 @@
 import { store } from "../store";
-import { getWordWithMostErrors, getCommonNumberOfErrors, getWordsWithNoErrors } from "../utils/statistic-utils";
+import {
+  getWordWithMostErrors,
+  getCommonNumberOfErrors,
+  getWordsWithNoErrors,
+} from "../utils/statistic-utils";
 import { IModel, ICurrentWord, IStat } from "../types/types";
 
 export class Model implements IModel {
@@ -16,7 +20,7 @@ export class Model implements IModel {
   constructor() {
     this.wordsInTraining = 3;
     this.words = [];
-    this.answer = '';
+    this.answer = "";
     this.indexOfTraining = 0;
 
     this.createTraining();
@@ -32,11 +36,11 @@ export class Model implements IModel {
 
   public bindSetCurrectNumberOfWord = (cb: () => void) => {
     this.renderCurrentNumberOfWord = cb;
-  }
+  };
 
   public bindRenderStat = (cb: () => void): void => {
     this.renderStat = cb;
-  }
+  };
 
   private createTraining(): void {
     for (let i = 0; i < this.wordsInTraining; i++) {
@@ -103,15 +107,13 @@ export class Model implements IModel {
 
   public switchToNextWord(): void {
     if (this.wordsInTraining > this.indexOfTraining + 1) {
-
       setTimeout(() => {
         this.indexOfTraining++;
         // Clear previous answers
-        this.answer = '';
+        this.answer = "";
         this.onRender();
         this.answerRender();
         this.renderCurrentNumberOfWord((this.indexOfTraining + 1).toString());
-
       }, 2000);
     } else {
       this.renderStat();
@@ -126,7 +128,7 @@ export class Model implements IModel {
     return {
       wordsWithNoErrors: getWordsWithNoErrors(this.words),
       commonNumberOfErrors: getCommonNumberOfErrors(this.words),
-      wordWithMostErrors: getWordWithMostErrors(this.words)
-    }
+      wordWithMostErrors: getWordWithMostErrors(this.words),
+    };
   }
 }

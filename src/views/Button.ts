@@ -1,8 +1,5 @@
 export class Button {
-  constructor(
-    public content: string,
-    public cls: string
-  ) {}
+  constructor(public content: string, public cls: string) {}
 
   public render(): Node {
     const button = document.createElement("button");

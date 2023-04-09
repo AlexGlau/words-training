@@ -22,14 +22,12 @@ export class Training implements ITraining {
     const cls = numberOfErrors === 3 ? "btn-danger" : "";
 
     options.forEach((letter): void => {
-      this.letters.appendChild(
-        new Button(letter, cls).render()
-      );
+      this.letters.appendChild(new Button(letter, cls).render());
     });
   }
 
   public renderAnswers(letter: string): void {
-    if (letter !== '') {
+    if (letter !== "") {
       this.answer.appendChild(new Answer(letter).render());
     } else {
       this.answer.innerHTML = "";
@@ -49,8 +47,7 @@ export class Training implements ITraining {
 
   public onAnswer(handler: (s: string) => void): void {
     this.letters.addEventListener("click", (e: MouseEvent): void => {
-      const target = (e.target as HTMLButtonElement);
-      handler(target.innerHTML);
+      handler((e.target as HTMLButtonElement).innerHTML);
     });
 
     document.addEventListener("keydown", (e: KeyboardEvent): void => {
