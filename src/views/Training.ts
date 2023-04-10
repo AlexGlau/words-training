@@ -5,7 +5,6 @@ import { Stat } from "./Stat";
 import { ITraining, ICurrentWord, IStat } from "../types/types";
 
 export class Training implements ITraining {
-  public clickCount = 0;
   private letters = document.getElementById("letters");
   private answer = document.getElementById("answer");
   private currentQuestion = document.getElementById("current_question");

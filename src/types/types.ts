@@ -24,7 +24,6 @@ export interface IModel {
 }
 
 export interface ITraining {
-  clickCount: number;
   onAnswer(handler: (s: string) => void): void;
   renderNumberOfWords(value: string): void;
   render(word: ICurrentWord): void;
