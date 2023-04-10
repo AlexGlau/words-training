@@ -18,7 +18,7 @@ export class Model implements IModel {
   public renderStat: () => void;
 
   constructor() {
-    this.wordsInTraining = 3;
+    this.wordsInTraining = 6;
     this.words = [];
     this.answer = "";
     this.indexOfTraining = 0;
