@@ -5,11 +5,9 @@ export interface ICurrentWord {
 }
 
 export interface IModel {
-  clickCount: number;
   wordsInTraining: number;
   words: ICurrentWord[];
   answer: string;
-  indexOfTraining: number;
   bindOnRender(cb: () => void): void;
   getCurrentTraining(): ICurrentWord;
   reduceButtons(letter: string): void;

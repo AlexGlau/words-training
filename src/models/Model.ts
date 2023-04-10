@@ -7,11 +7,11 @@ import {
 import { IModel, ICurrentWord, IStat } from "../types/types";
 
 export class Model implements IModel {
-  public clickCount = 0;
-  public wordsInTraining;
+  private clickCount = 0;
+  private indexOfTraining: number;
+  public wordsInTraining: number;
   public words: ICurrentWord[];
   public answer: string;
-  public indexOfTraining;
   public onRender: () => void;
   public answerRender: () => void;
   public renderCurrentNumberOfWord: (numberOfCurrentWord: string) => void;
