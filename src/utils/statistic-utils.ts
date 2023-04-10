@@ -18,17 +18,18 @@ export function getCommonNumberOfErrors(words: ICurrentWord[]): number {
 }
 
 export function getWordWithMostErrors(words: ICurrentWord[]): string {
-  let wordWithMostErrors = "";
+  let answer = '';
   const errors = words[0].numberOfErrors;
-  let index = 0;
 
   for (let i = 1; i < words.length; i++) {
     if (words[i].numberOfErrors > errors) {
-      index = i;
+      answer = words[i].word;
     }
   }
 
-  wordWithMostErrors = words[index].word;
+  if (errors > 0) {
+    answer = words[0].word;
+  }
 
-  return wordWithMostErrors;
+  return answer;
 }
