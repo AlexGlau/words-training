@@ -23,8 +23,6 @@ export interface IModel {
   bindRenderStat(cb: () => void): void;
 }
 
-export type El = HTMLElement | null;
-
 export interface ITraining {
   clickCount: number;
   onAnswer(handler: (s: string) => void): void;
