@@ -1,3 +1,5 @@
-import { controller } from "./controllers/Controller";
+import { Model } from "./models/Model";
+import { Training } from "./views/Training";
+import { Controller } from "./controllers/Controller";
 
-controller.init();
+new Controller(new Model(), new Training());

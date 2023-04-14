@@ -1,78 +1,56 @@
 import { Button } from "./Button";
 import { Answer } from "./Answer";
-import { stat } from "./Stat";
-import { controller } from "../controllers/Controller";
+import { Stat } from "./Stat";
 
-export const training = {
-  clickCount: 0,
-  isCorrect: true,
-  init(): void {
-    this.letters = document.getElementById("letters");
-    this.answer = document.getElementById("answer");
-    this.currentQuestion = document.getElementById("current_question");
-    // Number words in one training should be set only once
-    // so there's no need in a method
-    document
-      .getElementById("total_questions")
-      .innerHTML = controller.getNumberOfWordsInTraining().toString();
-    this.render();
-  },
-  updateNumberOfCurrentQuestion(): void {
-    if (this.currentQuestion) {
-      this.currentQuestion.innerHTML = controller.getIndex();
-    }
-  },
-  renderStat(): void {
-    this.letters.innerHTML = "";
-    this.answer.innerHTML = "";
+import { ITraining, ICurrentWord, IStat } from "../types/types";
 
-    stat.init();
-  },
-  render(): void {
+export class Training implements ITraining {
+  private letters = document.getElementById("letters");
+  private answer = document.getElementById("answer");
+  private currentQuestion = document.getElementById("current_question");
+
+  public renderNumberOfWords(value: string): void {
+    document.getElementById("total_questions").innerHTML = value;
+  }
+
+  public render(word: ICurrentWord): void {
     this.letters.innerHTML = "";
 
-    const { options, numberOfErrors } = controller.getCurrentTraining();
+    const { options, numberOfErrors } = word;
 
     const cls = numberOfErrors === 3 ? "btn-danger" : "";
 
-    if (this.letters) {
-      options.forEach((letter): void => {
-        this.letters.appendChild(
-          new Button(letter, this.handleClick.bind(this), cls).render()
-        );
-      });
-    }
-  },
-  clearAnswer(): void {
-    this.answer.innerHTML = "";
-  },
-  handleClick(e: MouseEvent): void {
-    const target = (e.target as HTMLButtonElement);
-    const letter = target.innerHTML;
+    options.forEach((letter): void => {
+      this.letters.appendChild(new Button(letter, cls).render());
+    });
+  }
 
-    const { options } = controller.getCurrentTraining();
-
-    this.isCorrect = controller.checkAnswer(letter, this.clickCount);
-
-    if (this.isCorrect) {
-      this.answer.appendChild(
-        new Answer(letter).render()
-      );
-      // If answer is correct, increase clickCount
-      this.clickCount++;
-      this.render();
-
-      // When there's no options anymore, show next word
-      if (options.length === 0) {
-        this.clickCount = 0;
-        controller.switchToNextWord();
-        this.updateNumberOfCurrentQuestion();
-        // Clear answer only when word changes
-        this.clearAnswer();
-        this.render();
-      }
+  public renderAnswers(letter: string): void {
+    if (letter !== "") {
+      this.answer.appendChild(new Answer(letter).render());
     } else {
-      target.classList.add("btn-danger");
+      this.answer.innerHTML = "";
     }
   }
-};
+
+  public setNumberOfCurrentWord(numberOfWord: string): void {
+    this.currentQuestion.innerHTML = numberOfWord;
+  }
+
+  public renderStat(statistics: IStat): void {
+    this.letters.classList.replace("d-flex", "d-none");
+    this.answer.classList.replace("d-flex", "d-none");
+
+    new Stat(statistics).render();
+  }
+
+  public onAnswer(handler: (s: string) => void): void {
+    this.letters.addEventListener("click", (e: MouseEvent): void => {
+      handler((e.target as HTMLButtonElement).innerHTML);
+    });
+
+    document.addEventListener("keydown", (e: KeyboardEvent): void => {
+      handler(e.key);
+    });
+  }
+}
